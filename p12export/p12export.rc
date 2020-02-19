@@ -1,0 +1,33 @@
+/*
+ * Copyright (c) 2019 Dmitry Timoshkov for Etersoft
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+#include <windef.h>
+#include <winuser.h>
+
+LANGUAGE LANG_ENGLISH, SUBLANG_DEFAULT
+
+1 DIALOG  0, 0, 200, 75
+STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Set container password"
+FONT 8, "MS Shell Dlg"
+{
+    LTEXT "Password:",-1,10,12,50,14,SS_NOPREFIX
+    EDITTEXT 100,65,10,125,14,ES_PASSWORD | ES_AUTOHSCROLL
+    LTEXT "Confirmation:",-1,10,32,50,14,SS_NOPREFIX
+    EDITTEXT 101,65,30,125,14,ES_PASSWORD | ES_AUTOHSCROLL
+    DEFPUSHBUTTON "OK",IDOK,80,53,55,14
+}
