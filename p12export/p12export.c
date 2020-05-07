@@ -36,6 +36,10 @@
 #include "engine/gost_keywrap.h"
 #include "gost_asn1_pro.h"
 
+#ifndef ARRAY_SIZE
+# define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
+#endif
+
 /* GOST engine */
 void ENGINE_load_gost(void);
 
@@ -763,6 +767,7 @@ static INT_PTR CALLBACK password_dlgproc(HWND hwnd, UINT msg, WPARAM wp, LPARAM 
 
 static int save_p12(BYTE *unwrapped_key, int key_len, PCCERT_CONTEXT cert)
 {
+    WCHAR bufW[512];
     BYTE buf[512];
     struct user user;
     X509 *x509;
@@ -810,7 +815,8 @@ static int save_p12(BYTE *unwrapped_key, int key_len, PCCERT_CONTEXT cert)
     ret = X509_check_private_key(x509, pkey);
     ok_ssl(ret == 1, "X509_check_private_key");
 
-    CertGetNameStringA(cert, CERT_NAME_SIMPLE_DISPLAY_TYPE, 0, NULL, buf, sizeof(buf));
+    CertGetNameStringW(cert, CERT_NAME_SIMPLE_DISPLAY_TYPE, 0, NULL, bufW, ARRAY_SIZE(bufW));
+    WideCharToMultiByte(CP_UTF8, 0, bufW, -1, buf, sizeof(buf), NULL, NULL);
 
     /* For compatibility we need to use HMACGostR3411_94 */
     gost_set_default_param(GOST_PARAM_PBE_PARAMS, "md_gost94");
