@@ -803,7 +803,7 @@ static int save_p12(BYTE *unwrapped_key, int key_len, PCCERT_CONTEXT cert)
         return 0;
     }
     ret = EC_KEY_set_private_key(eckey, bnkey);
-    ok(ret, "EC_KEY_set_private_key");
+    ok_ssl(ret, "EC_KEY_set_private_key");
 
     gost_ec_compute_public(eckey);
 
@@ -815,7 +815,8 @@ static int save_p12(BYTE *unwrapped_key, int key_len, PCCERT_CONTEXT cert)
     ret = X509_check_private_key(x509, pkey);
     ok_ssl(ret == 1, "X509_check_private_key");
 
-    CertGetNameStringW(cert, CERT_NAME_SIMPLE_DISPLAY_TYPE, 0, NULL, bufW, ARRAY_SIZE(bufW));
+    ret = CertGetNameStringW(cert, CERT_NAME_SIMPLE_DISPLAY_TYPE, 0, NULL, bufW, ARRAY_SIZE(bufW));
+    ok(ret, "CertGetNameString");
     WideCharToMultiByte(CP_UTF8, 0, bufW, -1, buf, sizeof(buf), NULL, NULL);
 
     /* For compatibility we need to use HMACGostR3411_94 */
@@ -829,6 +830,7 @@ static int save_p12(BYTE *unwrapped_key, int key_len, PCCERT_CONTEXT cert)
     ret = PKCS12_set_mac(p12, user.password, -1, NULL, 32, 0, EVP_get_digestbynid(NID_id_GostR3411_94));
     ok_ssl(ret == 1, "PKCS12_set_mac");
 
+    WideCharToMultiByte(CP_ACP, 0, bufW, -1, buf, sizeof(buf), NULL, NULL);
     strcat(buf, ".pfx");
     printf("Saving \"%s\"...\n", buf);
 
