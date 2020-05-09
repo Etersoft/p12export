@@ -889,6 +889,8 @@ int main(int argc, char *argv[])
     int ret, i;
     BYTE unwrapped_key[64];
 
+    SetConsoleOutputCP(GetACP());
+
     for (i = 1; i < argc; i++)
     {
         if (argv[i][0] == '-')
