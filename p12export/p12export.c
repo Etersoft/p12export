@@ -935,7 +935,7 @@ int main(int argc, char *argv[])
     dprintf("KP_KEYLEN: %u\n", key_len);
 
     size = sizeof(perm);
-    ret = CryptGetKeyParam(hkey_user, KP_KEYLEN, (BYTE *)&perm, &size, 0);
+    ret = CryptGetKeyParam(hkey_user, KP_PERMISSIONS, (BYTE *)&perm, &size, 0);
     ok(ret, "CryptGetKeyParam");
     dprintf("KP_PERMISSIONS: %#x\n", perm);
 
