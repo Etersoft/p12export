@@ -42,7 +42,7 @@ Building
 
 **p12export**
 
-Сначала нужно собрать openssl выполнив buid_openssl.bat (требует Strawberry Perl для
+Сначала нужно собрать openssl выполнив build_openssl.bat (требует Strawberry Perl для
 выполнения configure), затем выполняется build_export.bat для сборки p12export.exe.
 
 **p12info**
@@ -61,6 +61,7 @@ Precompiled binaries
 Bugs
 ----
 Авторы будут очень признательны за любые отзывы, советы и замечания.
+Пишите на support@etersoft.ru.
 
 Contributing
 ------------
