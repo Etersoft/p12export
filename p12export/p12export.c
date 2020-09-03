@@ -765,6 +765,17 @@ static INT_PTR CALLBACK password_dlgproc(HWND hwnd, UINT msg, WPARAM wp, LPARAM 
     return FALSE;
 }
 
+static void fixup_illegal_chars(WCHAR *name)
+{
+    static const char illegal[] = "*?<>|\"+=,;[]:/\\\345";
+
+    while (*name)
+    {
+        if (*name < 0xff && strchr(illegal, *name)) *name = '_';
+        name++;
+    }
+}
+
 static int save_p12(BYTE *unwrapped_key, int key_len, PCCERT_CONTEXT cert)
 {
     WCHAR bufW[512];
@@ -830,6 +841,7 @@ static int save_p12(BYTE *unwrapped_key, int key_len, PCCERT_CONTEXT cert)
     ret = PKCS12_set_mac(p12, user.password, -1, NULL, 32, 0, EVP_get_digestbynid(NID_id_GostR3411_94));
     ok_ssl(ret == 1, "PKCS12_set_mac");
 
+    fixup_illegal_chars(bufW);
     WideCharToMultiByte(CP_ACP, 0, bufW, -1, buf, sizeof(buf), NULL, NULL);
     strcat(buf, ".pfx");
     printf("Saving \"%s\"...\n", buf);

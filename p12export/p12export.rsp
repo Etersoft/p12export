@@ -29,7 +29,7 @@ engine\gost_pmeth.c
 engine\gost89.c
 engine\gosthash.c
 engine\gosthash2012.c
-openssl_1_1_1d\libcrypto_static.lib
+openssl_1_1_1d\libcrypto.lib
 ws2_32.lib
 crypt32.lib
 cryptui.lib
