@@ -56,7 +56,9 @@ Precompiled binaries
 --------------------
 Для удобства в составе проекта поставляются уже собранные p12export.exe и p12info.exe.
 Так как линковка с gost-engine и openssl статическая, то никаких дополнительных DLL
-для работы не требуется.
+для работы не требуется, кроме 32-битной библиотеки msvcr100.dll:
+http://www.microsoft.com/ru-RU/download/details.aspx?id=8328
+
 
 Bugs
 ----
