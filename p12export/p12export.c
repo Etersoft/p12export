@@ -954,6 +954,7 @@ int main(int argc, char *argv[])
     switch (key_alg)
     {
     case CALG_DH_EL_SF:
+    case CALG_GR3410EL:
         key_alg = CALG_PRO_EXPORT;
         break;
 
