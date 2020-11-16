@@ -152,7 +152,7 @@ int main(int argc, char *argv[])
     ok_ssl(ret == 1, "X509_check_private_key");
 
     EVP_PKEY_print_private(bio, pkey, 0, NULL);
-    X509_print(bio, x509);
+    X509_print_ex(bio, x509, ASN1_STRFLGS_UTF8_CONVERT | XN_FLAG_SEP_CPLUS_SPC, 0);
 
     return 0;
 }
